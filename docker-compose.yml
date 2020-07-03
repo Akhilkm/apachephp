@@ -1,0 +1,21 @@
+version: '3'
+  
+services:
+  mysql:
+    build: ./images/db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+    volumes:
+      - /opt/mysql:/var/lib/mysql 
+  apachephp:
+    build: ./images/app
+    command: "./bin/apachectl -D FOREGROUND"
+    depends_on:
+      - mysql
+    volumes:
+      - .:/code
+    ports:
+      - "80:80"
+    depends_on:
+      - db
