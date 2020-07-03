@@ -11,11 +11,9 @@ services:
   apachephp:
     build: ./images/app
     command: "./bin/apachectl -D FOREGROUND"
-    depends_on:
-      - mysql
     volumes:
       - /opt/wipro:/opt/apache2/htdocs
     ports:
       - "80:80"
     depends_on:
-      - db
+      - mysql
