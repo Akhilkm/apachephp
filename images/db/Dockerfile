@@ -1,2 +1,2 @@
 FROM mysql
-expor 3306
+EXPOSE 3306
