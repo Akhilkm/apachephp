@@ -14,7 +14,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - .:/code
+      - /opt/wipro:/opt/apache2/htdocs
     ports:
       - "80:80"
     depends_on:
