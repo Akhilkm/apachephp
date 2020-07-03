@@ -14,7 +14,7 @@ services:
     build: ./images/app
     command: "./bin/apachectl -D FOREGROUND"
     volumes:
-      - /opt/wipro:/opt/apache2/htdocs
+      - /opt/magento:/opt/apache2/htdocs
     ports:
       - "80:80"
     depends_on:
