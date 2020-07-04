@@ -22,12 +22,6 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     && yum update -y \
     && yum install -y php php-pdo php-mysqlnd php-opcache php-xml php-mcrypt php-gd php-devel php-intl php-mbstring php-json php-iconv
 
-# Creating apache user
-RUN useradd -d /opt/apache2 -s /bin/nologin apache
-
-# Passing control to apache user
-USER apache
-
 # Installing apacahe2
 RUN cd /opt \
     && wget https://mirrors.estointernet.in/apache//httpd/httpd-$APACHE_VERION.tar.gz \
@@ -46,7 +40,11 @@ RUN cd /opt \
     && make \
     && make install \
     && cd /opt/ \
-    && rm -rf /opt/httpd-2.4.43*
+    && rm -rf /opt/httpd-2.4.43* \
+    && usermod -d /opt/apache2 apache
+
+# Passing control to apache user
+USER apache
 
 # Setting up the environment
 WORKDIR /opt/apache2

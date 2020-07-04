@@ -19,5 +19,5 @@ docker exec magento_apachephp_1 php /tmp/checkmysql.php
 
 ### Cleanup
 ```
-docker-compose  -p magento down
+docker-compose -p magento down
 ```
