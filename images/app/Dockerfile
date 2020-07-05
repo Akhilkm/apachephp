@@ -80,7 +80,7 @@ EXPOSE 8080
 
 # Adding startup script
 COPY run.sh /opt/
-RUN chmod +x /otp/run.sh
+RUN chmod +x /opt/run.sh
 
 # Entrypoint
 CMD ["apachectl", "-D", "FOREGROUND"]
