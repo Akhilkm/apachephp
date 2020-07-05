@@ -61,8 +61,7 @@ RUN cd /opt \
 # Installing magento
 COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
 
-RUN chmod +x /opt/run.sh \
-    && mkdir $MAGENTO_HOME && mv /opt/*.tar.gz $MAGENTO_HOME && cd $MAGENTO_HOME \
+RUN mkdir $MAGENTO_HOME && mv /opt/*.tar.gz $MAGENTO_HOME && cd $MAGENTO_HOME \
     && tar -zxvf *${MAGENTO_VERSION}*.tar.gz  \
     && rm *.tar.gz
 
