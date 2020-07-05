@@ -64,8 +64,8 @@ COPY run.sh /opt/
 
 RUN chmod +x /opt/run.sh \
     && mkdir $MAGENTO_HOME && mv /opt/*.tar.gz $MAGENTO_HOME && cd $MAGENTO_HOME \
-    && tar -zxvf *${MAGENTO_VERSION}*.tar.gz \
-    && rm $MAGENTO_HOME/*${MAGENTO_VERSION}*.tar.gz 
+    && tar -zxvf *${MAGENTO_VERSION}*.tar.gz  \
+    && rm *.tar.gz
 
 RUN cd $MAGENTO_HOME \
     && useradd magento \
