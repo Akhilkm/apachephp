@@ -26,18 +26,6 @@ ENV MAGENTO_DB_PASSWORD magento
 RUN yum update -y \
     && yum install -y wget vim net-tools cmake make gcc openssl-devel expat-devel deltarpm 
 
-# Installing Php
-
-RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-    && yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm \
-    && yum -y install yum-utils \
-    && yum-config-manager --enable remi-php72 \
-    && yum update -y \
-    && yum install -y php php-pdo php-mysqlnd php-opcache php-xml php-mcrypt php-gd \
-       php-devel php-intl php-mbstring php-json php-iconv php-soap php-bcmath php-zip  
-
-COPY php.ini /etc/php.ini
-
 # Installing apacahe2
 RUN cd /opt \
     && wget https://mirrors.estointernet.in/apache//httpd/httpd-$APACHE_VERION.tar.gz \
@@ -58,6 +46,18 @@ RUN cd /opt \
     && cd /opt/ \
     && rm -rf /opt/httpd-2.4.43* \
     && chown -R apache:apache /opt/apache2 
+
+# Installing Php
+
+RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+    && yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm \
+    && yum -y install yum-utils \
+    && yum-config-manager --enable remi-php72 \
+    && yum update -y \
+    && yum install -y php php-pdo php-mysqlnd php-opcache php-xml php-mcrypt php-gd \
+       php-devel php-intl php-mbstring php-json php-iconv php-soap php-bcmath php-zip  
+
+COPY php.ini /etc/php.ini
 
 # Installing magento
 COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
