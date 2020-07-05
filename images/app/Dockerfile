@@ -60,7 +60,10 @@ RUN cd /opt \
 
 # Installing magento
 COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
-RUN mkdir $MAGENTO_HOME && mv /opt/*.tar.gz $MAGENTO_HOME && cd $MAGENTO_HOME \
+COPY run.sh /opt/
+
+RUN chmod +x /opt/run.sh \
+    && mkdir $MAGENTO_HOME && mv /opt/*.tar.gz $MAGENTO_HOME && cd $MAGENTO_HOME \
     && tar -zxvf *${MAGENTO_VERSION}*.tar.gz \
     && rm $MAGENTO_HOME/*${MAGENTO_VERSION}*.tar.gz 
 
@@ -69,12 +72,7 @@ RUN useradd magento \
     && find var vendor pub/static pub/media app/etc -type f -exec chmod g+w {} \; \
     && find var vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} \; \
     && chown -R magento:apache . \
-    && chmod u+x bin/magento \
-    && magento setup:install --admin-firstname=$MAGENTO_ADMIN_FIRSTNAME \
-       --admin-lastname=$MAGENTO_ADMIN_LASTNAME --admin-email=$MAGENTO_ADMIN_EMAIL \
-       --admin-user=$MAGENTO_ADMIN_USER --admin-password=$MAGENTO_ADMIN_PASSWORD \
-       --db-name=$MAGENTO_DB_NAME --db-host=$MAGENTO_DB_HOST --db-user=$MAGENTO_DB_USER \
-       --db-password=$MAGENTO_DB_PASSWORD
+    && chmod u+x bin/magento
 
 
 # Passing control to apache user

@@ -16,7 +16,7 @@ services:
   apachephp:
     build: ./images/app
     hostname: apachephp
-    command: "apachectl -D FOREGROUND"
+    command: "/bin/bash -c /opt/run.sh"
     environment:
       MAGENTO_ADMIN_FIRSTNAME: Akhil
       MAGENTO_ADMIN_LASTNAME: KM
