@@ -74,10 +74,6 @@ RUN useradd magento \
     && chown -R magento:apache . \
     && chmod u+x bin/magento
 
-
-# Passing control to apache user
-USER apache
-
 # Setting up the environment
 WORKDIR /opt/apache2
 COPY httpd.conf conf/httpd.conf
