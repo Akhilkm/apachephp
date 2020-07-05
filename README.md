@@ -5,7 +5,7 @@ Apache php project
 ```
 Note: need to build the image if there is any changes in the Dockerfile
 
-docker-compose build
+docker-compose -p magento build
 ```
 
 ### Starting the service
