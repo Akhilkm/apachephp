@@ -22,7 +22,7 @@ services:
       MAGENTO_ADMIN_LASTNAME: KM
       MAGENTO_ADMIN_EMAIL: akhilu011@gmail.com
       MAGENTO_ADMIN_USER: magento
-      MAGENTO_ADMIN_PASSWORD: admin
+      MAGENTO_ADMIN_PASSWORD: asdf2@12A
       MAGENTO_DB_NAME: magento
       MAGENTO_DB_HOST: mysql
       MAGENTO_DB_USER: magento
