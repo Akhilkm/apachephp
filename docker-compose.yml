@@ -27,8 +27,6 @@ services:
       MAGENTO_DB_HOST: mysql
       MAGENTO_DB_USER: magento
       MAGENTO_DB_PASSWORD: magento
-    volumes:
-      - /opt/magento:/opt/apache2/htdocs
     ports:
       - "80:8080"
     depends_on:
