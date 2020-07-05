@@ -7,10 +7,20 @@ MAINTAINER Amal K Raj
 # Environment varaibles
 ENV APACHE_VERION 2.4.43
 ENV APACHE_HOME /opt/apache2
-ENV PATH="/opt/apache2/bin:/opt/magento/bin:${PATH}"
 ENV MAGENTO_VERSION 2.3.4
 ENV SAMPLE_DATA sample_data
-ENV MAGENTO_HOME /opt/magento
+ENV MAGENTO_HOME /opt/apache2/htdocs/magento2
+ENV PATH="/opt/apache2/bin:${MAGENTO_HOME}/bin:${PATH}"
+
+ENV MAGENTO_ADMIN_FIRSTNAME name
+ENV MAGENTO_ADMIN_LASTNAME lname
+ENV MAGENTO_ADMIN_EMAIL test@gmail.com
+ENV MAGENTO_ADMIN_USER name
+ENV MAGENTO_ADMIN_PASSWORD password
+ENV MAGENTO_DB_NAME magento
+ENV MAGENTO_DB_HOST mysql
+ENV MAGENTO_DB_USER magento
+ENV MAGENTO_DB_PASSWORD magento
 
 # Installing dependancies
 RUN yum update -y \
@@ -52,7 +62,19 @@ RUN cd /opt \
 COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
 RUN mkdir $MAGENTO_HOME && mv /opt/*.tar.gz $MAGENTO_HOME && cd $MAGENTO_HOME \
     && tar -zxvf *${MAGENTO_VERSION}*.tar.gz \
-    && rm $MAGENTO_HOME/*${MAGENTO_VERSION}*.tar.gz
+    && rm $MAGENTO_HOME/*${MAGENTO_VERSION}*.tar.gz \
+    && useradd magento \
+    && usermod -g apache magento \
+    && find var vendor pub/static pub/media app/etc -type f -exec chmod g+w {} \; \
+    && find var vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} \; \
+    && chown -R magento:apache . \
+    && chmod u+x bin/magento \
+    && magento setup:install --admin-firstname=$MAGENTO_ADMIN_FIRSTNAME \
+       --admin-lastname=$MAGENTO_ADMIN_LASTNAME --admin-email=$MAGENTO_ADMIN_EMAIL \
+       --admin-user=$MAGENTO_ADMIN_USER --admin-password=$MAGENTO_ADMIN_PASSWORD \
+       --db-name=$MAGENTO_DB_NAME --db-host=$MAGENTO_DB_HOST --db-user=$MAGENTO_DB_USER \
+       --db-password=$MAGENTO_DB_PASSWORD
+
 
 # Passing control to apache user
 USER apache

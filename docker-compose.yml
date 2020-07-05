@@ -5,7 +5,10 @@ services:
     build: ./images/db
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_ROOT_PASSWORD=admin
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: magento
+      MYSQL_USER: magento
+      MYSQL_PASSWORD: magento
     volumes:
       - /opt/mysql:/var/lib/mysql
     ports: 
@@ -14,6 +17,16 @@ services:
     build: ./images/app
     hostname: apachephp
     command: "apachectl -D FOREGROUND"
+    environment:
+      MAGENTO_ADMIN_FIRSTNAME: Akhil
+      MAGENTO_ADMIN_LASTNAME: KM
+      MAGENTO_ADMIN_EMAIL: akhilu011@gmail.com
+      MAGENTO_ADMIN_USER: magento
+      MAGENTO_ADMIN_PASSWORD: admin
+      MAGENTO_DB_NAME: magento
+      MAGENTO_DB_HOST: mysql
+      MAGENTO_DB_USER: magento
+      MAGENTO_DB_PASSWORD: magento
     volumes:
       - /opt/magento:/opt/apache2/htdocs
     ports:
