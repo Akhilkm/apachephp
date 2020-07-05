@@ -28,6 +28,7 @@ RUN yum update -y \
 
 # Installing apacahe2
 RUN cd /opt \
+    && useradd apache \
     && wget https://mirrors.estointernet.in/apache//httpd/httpd-$APACHE_VERION.tar.gz \
     && tar -zxvf httpd-${APACHE_VERION}.tar.gz \
     && cd httpd-${APACHE_VERION} \
