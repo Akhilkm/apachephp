@@ -1,9 +1,16 @@
 ## Basic LAMP web application
 Apache php project
 
+### Building the image
+```
+Note: need to build the image if there is any changes in the Dockerfile
+
+docker-compose build
+```
+
 ### Starting the service
 ```
-docker-compose  -p magento up -d
+docker-compose -p magento up -d
 ```
 
 ### Login into the app container

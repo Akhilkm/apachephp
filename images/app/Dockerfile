@@ -24,6 +24,8 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     && yum update -y \
     && yum install -y php php-pdo php-mysqlnd php-opcache php-xml php-mcrypt php-gd php-devel php-intl php-mbstring php-json php-iconv
 
+COPY php.ini /etc/php.ini
+
 # Installing apacahe2
 RUN cd /opt \
     && wget https://mirrors.estointernet.in/apache//httpd/httpd-$APACHE_VERION.tar.gz \
