@@ -33,7 +33,8 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     && yum -y install yum-utils \
     && yum-config-manager --enable remi-php72 \
     && yum update -y \
-    && yum install -y php php-pdo php-mysqlnd php-opcache php-xml php-mcrypt php-gd php-devel php-intl php-mbstring php-json php-iconv
+    && yum install -y php php-pdo php-mysqlnd php-opcache php-xml php-mcrypt php-gd \
+       php-devel php-intl php-mbstring php-json php-iconv php-soap php-bcmath php-zip  
 
 COPY php.ini /etc/php.ini
 
