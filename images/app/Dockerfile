@@ -62,8 +62,9 @@ RUN cd /opt \
 COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
 RUN mkdir $MAGENTO_HOME && mv /opt/*.tar.gz $MAGENTO_HOME && cd $MAGENTO_HOME \
     && tar -zxvf *${MAGENTO_VERSION}*.tar.gz \
-    && rm $MAGENTO_HOME/*${MAGENTO_VERSION}*.tar.gz \
-    && useradd magento \
+    && rm $MAGENTO_HOME/*${MAGENTO_VERSION}*.tar.gz 
+
+RUN useradd magento \
     && usermod -g apache magento \
     && find var vendor pub/static pub/media app/etc -type f -exec chmod g+w {} \; \
     && find var vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} \; \
