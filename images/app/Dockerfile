@@ -60,7 +60,6 @@ RUN cd /opt \
 
 # Installing magento
 COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
-COPY run.sh /opt/
 
 RUN chmod +x /opt/run.sh \
     && mkdir $MAGENTO_HOME && mv /opt/*.tar.gz $MAGENTO_HOME && cd $MAGENTO_HOME \
@@ -79,6 +78,10 @@ RUN cd $MAGENTO_HOME \
 WORKDIR /opt/apache2
 COPY httpd.conf conf/httpd.conf
 EXPOSE 8080
+
+# Adding startup script
+COPY run.sh /opt/
+RUN chmod +x /otp/run.sh
 
 # Entrypoint
 CMD ["apachectl", "-D", "FOREGROUND"]
