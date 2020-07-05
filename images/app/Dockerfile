@@ -67,7 +67,8 @@ RUN chmod +x /opt/run.sh \
     && tar -zxvf *${MAGENTO_VERSION}*.tar.gz \
     && rm $MAGENTO_HOME/*${MAGENTO_VERSION}*.tar.gz 
 
-RUN useradd magento \
+RUN cd $MAGENTO_HOME \
+    && useradd magento \
     && usermod -g apache magento \
     && find var vendor pub/static pub/media app/etc -type f -exec chmod g+w {} \; \
     && find var vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} \; \
