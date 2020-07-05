@@ -7,9 +7,10 @@ MAINTAINER Amal K Raj
 # Environment varaibles
 ENV APACHE_VERION 2.4.43
 ENV APACHE_HOME /opt/apache2
-ENV PATH="/opt/apache2/bin:${PATH}"
+ENV PATH="/opt/apache2/bin:/opt/magento/bin:${PATH}"
 ENV MAGENTO_VERSION 2.3.4
 ENV SAMPLE_DATA sample_data
+ENV MAGENTO_HOME /opt/magento
 
 # Installing dependancies
 RUN yum update -y \
@@ -49,8 +50,9 @@ RUN cd /opt \
 
 # Installing magento
 COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
-RUN cd /opt \
-    && tar -zxvf *${MAGENTO_VERSION}*.tar.gz
+RUN mkdir $MAGENTO_HOME && cd MAGENTO_HOME \
+    && tar -zxvf *${MAGENTO_VERSION}*.tar.gz \
+    && rm /opt/*${MAGENTO_VERSION}*.tar.gz
 
 # Passing control to apache user
 USER apache
