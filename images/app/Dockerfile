@@ -8,6 +8,8 @@ MAINTAINER Amal K Raj
 ENV APACHE_VERION 2.4.43
 ENV APACHE_HOME /opt/apache2
 ENV PATH="/opt/apache2/bin:${PATH}"
+ENV MAGENTO_VERSION 2.3.4
+ENV SAMPLE_DATA sample_data
 
 # Installing dependancies
 RUN yum update -y \
@@ -41,7 +43,7 @@ RUN cd /opt \
     && make install \
     && cd /opt/ \
     && rm -rf /opt/httpd-2.4.43* \
-    && usermod -d /opt/apache2 apache
+    && chown -R apache:apache /opt/apache2 
 
 # Passing control to apache user
 USER apache
