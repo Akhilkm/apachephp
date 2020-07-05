@@ -13,7 +13,7 @@ services:
   apachephp:
     build: ./images/app
     hostname: apachephp
-    command: "./bin/apachectl -D FOREGROUND"
+    command: "apachectl -D FOREGROUND"
     volumes:
       - /opt/magento:/opt/apache2/htdocs
     ports:

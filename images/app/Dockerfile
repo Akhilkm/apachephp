@@ -47,6 +47,11 @@ RUN cd /opt \
     && rm -rf /opt/httpd-2.4.43* \
     && chown -R apache:apache /opt/apache2 
 
+# Installing magento
+COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
+RUN cd /opt \
+    && tar *${MAGENTO_VERSION}*.tar.gz
+
 # Passing control to apache user
 USER apache
 
