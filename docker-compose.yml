@@ -6,9 +6,9 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: magento
-      MYSQL_USER: magento
-      MYSQL_PASSWORD: magento
+      MYSQL_DATABASE: wipro
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Wipro@123
     volumes:
       - /opt/mysql:/var/lib/mysql
     ports: 
@@ -18,15 +18,21 @@ services:
     hostname: apachephp
     command: "/bin/bash -c /opt/run.sh"
     environment:
-      MAGENTO_ADMIN_FIRSTNAME: Akhil
-      MAGENTO_ADMIN_LASTNAME: KM
-      MAGENTO_ADMIN_EMAIL: akhilu011@gmail.com
-      MAGENTO_ADMIN_USER: magento
-      MAGENTO_ADMIN_PASSWORD: asdf2@12A
-      MAGENTO_DB_NAME: magento
+      MAGENTO_BASE_URL: http://wipro-demo.com/magento/
+      MAGENTO_BACKEND_FRONTNAME: admin
+      MAGENTO_LANGUAGE: en_US
+      MAGENTO_CURRENCY: USD
+      MAGENTO_TIMEZONE: America/Chicago
+      MAGENTO_USE_REWRITE: 1
+      MAGENTO_ADMIN_FIRSTNAME: Amal
+      MAGENTO_ADMIN_LASTNAME: Raj
+      MAGENTO_ADMIN_EMAIL: amal.raj2@wipro.com
+      MAGENTO_ADMIN_USER: admin
+      MAGENTO_ADMIN_PASSWORD: Wipro@123
+      MAGENTO_DB_NAME: wipro
       MAGENTO_DB_HOST: mysql
-      MAGENTO_DB_USER: root
-      MAGENTO_DB_PASSWORD: admin
+      MAGENTO_DB_USER: admin
+      MAGENTO_DB_PASSWORD: Wipro@123
     ports:
       - "80:80"
     depends_on:
