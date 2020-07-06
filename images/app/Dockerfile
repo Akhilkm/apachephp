@@ -5,14 +5,10 @@ FROM centos:7
 MAINTAINER Amal K Raj
 
 # Environment varaibles
-ENV APACHE_VERION 2.4.43
-ENV APACHE_HOME /opt/apache2
 ENV MAGENTO_VERSION 2.3.4
 ENV SAMPLE_DATA sample_data
-ENV MAGENTO_HOME /var/www/html/magento2
-ENV PHP_VERSION 7.2.31
-ENV PHP_HOME /opt/php
-ENV PATH="/opt/apache2/bin:${MAGENTO_HOME}/bin:${PHP_HOME}/bin:${PATH}"
+ENV MAGENTO_HOME /var/www/html/example.com/public_html
+ENV PATH="${MAGENTO_HOME}/bin:${PATH}"
 
 ENV MAGENTO_ADMIN_FIRSTNAME name
 ENV MAGENTO_ADMIN_LASTNAME lname
@@ -58,9 +54,9 @@ RUN cd $MAGENTO_HOME \
     && chmod u+x bin/magento
 
 # Setting up the environment
-WORKDIR /opt/apache2
-COPY httpd.conf conf/httpd.conf
-EXPOSE 8080
+WORKDIR /opt
+COPY httpd.conf /etc/httpd/conf/
+EXPOSE 80
 
 # Adding startup script
 COPY run.sh /opt/
