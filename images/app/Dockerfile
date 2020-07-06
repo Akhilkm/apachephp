@@ -5,7 +5,7 @@ FROM centos:7
 MAINTAINER Amal K Raj
 
 # Environment varaibles
-ENV MAGENTO_VERSION 2.3.5
+ENV MAGENTO_VERSION 2.3.5-p1
 ENV SAMPLE_DATA sample_data
 ENV MAGENTO_HOME /var/www/html/wipro-demo.com/public_html/magento
 ENV PATH="${MAGENTO_HOME}/bin:${PATH}"
@@ -39,10 +39,11 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
        php-devel php-intl php-mbstring php-json php-iconv php-soap php-bcmath php-zip  
 
 # Installing magento
-COPY magento/magento-ce-${MAGENTO_VERSION}-p1_${SAMPLE_DATA}-2020-04-24-10-19-21.zip /opt/
+COPY magento/magento-ce-${MAGENTO_VERSION}_${SAMPLE_DATA}-2020-04-24-10-19-21.zip /opt/
 
 RUN mkdir -p $MAGENTO_HOME && mv /opt/*.zip $MAGENTO_HOME && cd $MAGENTO_HOME \
     && unzip *${MAGENTO_VERSION}*.zip \
+    && mv magento-ce-${MAGENTO_VERSION}_${SAMPLE_DATA}-2020-04-24-10-19-21 magento
     && rm *.zip
 
 RUN cd $MAGENTO_HOME \
