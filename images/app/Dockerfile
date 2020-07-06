@@ -42,8 +42,9 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
 COPY magento/magento-ce-${MAGENTO_VERSION}_${SAMPLE_DATA}-2020-04-24-10-19-21.zip /opt/
 
 RUN mkdir -p $MAGENTO_HOME && mv /opt/*.zip $MAGENTO_HOME && cd $MAGENTO_HOME \
-    && unzip *${MAGENTO_VERSION}*.zip \
-    && mv magento-ce-${MAGENTO_VERSION}_${SAMPLE_DATA}-2020-04-24-10-19-21 magento \
+    && unzip *${MAGENTO_VERSION}*.zip
+
+RUN mv magento-ce-${MAGENTO_VERSION}_${SAMPLE_DATA}-2020-04-24-10-19-21 magento \
     && rm *.zip
 
 RUN cd $MAGENTO_HOME \
