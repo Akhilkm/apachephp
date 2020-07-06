@@ -10,7 +10,9 @@ ENV APACHE_HOME /opt/apache2
 ENV MAGENTO_VERSION 2.3.4
 ENV SAMPLE_DATA sample_data
 ENV MAGENTO_HOME /opt/apache2/htdocs/magento2
-ENV PATH="/opt/apache2/bin:${MAGENTO_HOME}/bin:${PATH}"
+ENV PHP_VERSION 7.2.31
+ENV PHP_HOME /opt/php
+ENV PATH="/opt/apache2/bin:${MAGENTO_HOME}/bin:${PHP_HOME}/bin:${PATH}"
 
 ENV MAGENTO_ADMIN_FIRSTNAME name
 ENV MAGENTO_ADMIN_LASTNAME lname
@@ -24,7 +26,7 @@ ENV MAGENTO_DB_PASSWORD magento
 
 # Installing dependancies
 RUN yum update -y \
-    && yum install -y wget vim net-tools cmake make gcc openssl-devel expat-devel deltarpm 
+    && yum install -y wget vim net-tools cmake make gcc openssl-devel expat-devel deltarpm libxml2-devel
 
 # Installing apacahe2
 RUN cd /opt \
@@ -41,7 +43,7 @@ RUN cd /opt \
     && mv apr-1.7.0 apr \
     && mv apr-util-1.6.1 apr-util \
     && cd .. \
-    && ./configure --prefix=/opt/apache2 --with-included-apr \
+    && ./configure --prefix=/opt/apache2 --with-included-apr --enable-so \
     && make \
     && make install \
     && cd /opt/ \
@@ -49,16 +51,18 @@ RUN cd /opt \
     && chown -R apache:apache /opt/apache2 
 
 # Installing Php
-
-RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-    && yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm \
-    && yum -y install yum-utils \
-    && yum-config-manager --enable remi-php72 \
-    && yum update -y \
-    && yum install -y php php-pdo php-mysqlnd php-opcache php-xml php-mcrypt php-gd \
-       php-devel php-intl php-mbstring php-json php-iconv php-soap php-bcmath php-zip  
-
-COPY php.ini /etc/php.ini
+COPY php.ini /opt/php/lib/php.ini
+RUN wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
+    && tar -zxvf php-${PHP_VERSION}.tar.gz \
+    && cd php-${PHP_VERSION} \
+    && ./configure --with-apxs2=/opt/apache2/bin/apxs --prefix=$PHP_HOME --with-php \
+        --with-php-pdo --with-php-mysqlnd --with-php-opcache --with-php-xml --with-php-mcrypt \
+        --with-php-gd --with-php-devel --with-php-intl --with-php-mbstring --with-php-json \
+        --with-php-iconv --with-php-soap --with-php-bcmath --with-php-zip \
+    && make \
+    && make install \
+    && ln -s $PHP_HOME/lib/php.ini $PHP_HOME/etc/ \
+    && rm -f /opt/php-*
 
 # Installing magento
 COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
