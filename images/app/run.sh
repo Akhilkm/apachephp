@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 10
+
 magento setup:install --admin-firstname=$MAGENTO_ADMIN_FIRSTNAME \
       --admin-lastname=$MAGENTO_ADMIN_LASTNAME --admin-email=$MAGENTO_ADMIN_EMAIL \
       --admin-user=$MAGENTO_ADMIN_USER --admin-password=$MAGENTO_ADMIN_PASSWORD \
