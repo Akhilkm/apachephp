@@ -44,6 +44,8 @@ COPY magento/magento-ce-${MAGENTO_VERSION}_${SAMPLE_DATA}-2020-04-24-10-19-21.zi
 RUN mkdir -p $MAGENTO_HOME && mv /opt/*.zip $MAGENTO_HOME && cd $MAGENTO_HOME \
     && unzip *${MAGENTO_VERSION}*.zip
 
+RUN cd $MAGENTO_HOME && ls -al
+
 RUN mv magento-ce-${MAGENTO_VERSION}_${SAMPLE_DATA}-2020-04-24-10-19-21 magento \
     && rm *.zip
 
