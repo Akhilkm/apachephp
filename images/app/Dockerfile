@@ -26,10 +26,11 @@ ENV MAGENTO_DB_PASSWORD magento
 
 # Installing dependancies
 RUN yum update -y \
-    && yum install -y wget vim net-tools cmake make gcc openssl-devel expat-devel deltarpm libxml2-devel
+    && yum install -y wget vim net-tools cmake make gcc openssl-devel expat-devel deltarpm libxml2-devel \
+       libpng libpng-devel libjpeg libjpeg-devel
 
 # Installing apacahe2
-RUN yum install httpd
+RUN yum install -y httpd
 
 # Installing Php
 COPY php.ini /etc/
