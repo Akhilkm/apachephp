@@ -43,7 +43,7 @@ RUN cd /opt \
     && mv apr-1.7.0 apr \
     && mv apr-util-1.6.1 apr-util \
     && cd .. \
-    && ./configure --prefix=/opt/apache2 --with-included-apr --enable-so \
+    && ./configure --prefix=/opt/apache2 --with-included-apr --enable-so --with-mysql\
     && make \
     && make install \
     && cd /opt/ \
@@ -55,10 +55,7 @@ COPY php.ini /opt/php/lib/php.ini
 RUN wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
     && tar -zxvf php-${PHP_VERSION}.tar.gz \
     && cd php-${PHP_VERSION} \
-    && ./configure --with-apxs2=/opt/apache2/bin/apxs --prefix=$PHP_HOME --with-php \
-        --with-php-pdo --with-php-mysqlnd --with-php-opcache --with-php-xml --with-php-mcrypt \
-        --with-php-gd --with-php-devel --with-php-intl --with-php-mbstring --with-php-json \
-        --with-php-iconv --with-php-soap --with-php-bcmath --with-php-zip \
+    && ./configure --with-apxs2=/opt/apache2/bin/apxs --prefix=$PHP_HOME \
     && make \
     && make install \
     && ln -s $PHP_HOME/lib/php.ini $PHP_HOME/etc/ \
