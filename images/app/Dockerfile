@@ -56,6 +56,7 @@ RUN cd $MAGENTO_HOME \
 # Setting up the environment
 WORKDIR /opt
 COPY httpd.conf /etc/httpd/conf/
+COPY magento-httpd.conf /etc/httpd/conf/conf.d/
 RUN mkdir /var/www/html/example.com/logs
 EXPOSE 80
 
