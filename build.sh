@@ -40,6 +40,7 @@ function build_image() {
 }
 
 function start_service() {
+    mkdir -p $MYSQL_VOLUME_PATH
     envsubst < docker-compose.yml | docker-compose -f - -p $PROJECT_NAME up -d 
 }
 
