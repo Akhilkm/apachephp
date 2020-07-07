@@ -57,7 +57,7 @@ RUN cd $MAGENTO_HOME \
 WORKDIR /opt
 COPY httpd.conf /etc/httpd/conf/
 COPY magento-httpd.conf /etc/httpd/conf.d/
-RUN mkdir /var/www/html/wipro-demo.com/logs
+RUN mkdir /var/www/html/logs
 EXPOSE 80
 
 # Adding startup script
