@@ -5,35 +5,35 @@ services:
     build: ./images/db
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: wipro
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: Wipro@123
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - /opt/mysql:/var/lib/mysql
+      - ${MYSQL_VOLUME_PATH}:/var/lib/mysql
     ports: 
-      - "3306:3306"
+      - "${MYSQL_PORT}:3306"
   apachephp:
     build: ./images/app
     hostname: apachephp
     command: "/bin/bash -c /opt/run.sh"
     environment:
-      MAGENTO_BASE_URL: http://wipro-demo.com/magento/
-      MAGENTO_BACKEND_FRONTNAME: admin
-      MAGENTO_LANGUAGE: en_US
-      MAGENTO_CURRENCY: USD
-      MAGENTO_TIMEZONE: America/Chicago
-      MAGENTO_USE_REWRITE: 1
-      MAGENTO_ADMIN_FIRSTNAME: Amal
-      MAGENTO_ADMIN_LASTNAME: Raj
-      MAGENTO_ADMIN_EMAIL: amal.raj2@wipro.com
-      MAGENTO_ADMIN_USER: admin
-      MAGENTO_ADMIN_PASSWORD: Wipro@123
-      MAGENTO_DB_NAME: wipro
-      MAGENTO_DB_HOST: mysql
-      MAGENTO_DB_USER: admin
-      MAGENTO_DB_PASSWORD: Wipro@123
+      MAGENTO_BASE_URL: ${MAGENTO_BASE_URL}
+      MAGENTO_BACKEND_FRONTNAME: ${MAGENTO_BACKEND_FRONTNAME}
+      MAGENTO_LANGUAGE: ${MAGENTO_LANGUAGE}
+      MAGENTO_CURRENCY: ${MAGENTO_CURRENCY}
+      MAGENTO_TIMEZONE: ${MAGENTO_TIMEZONE}
+      MAGENTO_USE_REWRITE: ${MAGENTO_USE_REWRITE}
+      MAGENTO_ADMIN_FIRSTNAME: ${MAGENTO_ADMIN_FIRSTNAME}
+      MAGENTO_ADMIN_LASTNAME: ${MAGENTO_ADMIN_LASTNAME}
+      MAGENTO_ADMIN_EMAIL: ${MAGENTO_ADMIN_EMAIL}
+      MAGENTO_ADMIN_USER: ${MAGENTO_ADMIN_USER}
+      MAGENTO_ADMIN_PASSWORD: ${MAGENTO_ADMIN_PASSWORD}
+      MAGENTO_DB_NAME: ${MAGENTO_DB_NAME}
+      MAGENTO_DB_HOST: ${MAGENTO_DB_HOST}
+      MAGENTO_DB_USER: ${MAGENTO_DB_USER}
+      MAGENTO_DB_PASSWORD: ${MAGENTO_DB_PASSWORD}
     ports:
-      - "80:80"
+      - "${APACHE_PORt}:80"
     depends_on:
       - mysql
