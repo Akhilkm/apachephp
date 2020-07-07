@@ -7,7 +7,7 @@ MAINTAINER Amal K Raj
 # Environment varaibles
 ENV MAGENTO_VERSION 2.3.5-p1
 ENV SAMPLE_DATA sample_data
-ENV MAGENTO_HOME /var/www/html/wipro-demo.com/public_html/magento
+ENV MAGENTO_HOME /var/www/html/public_html/magento
 ENV PATH="${MAGENTO_HOME}/bin:${PATH}"
 
 ENV MAGENTO_ADMIN_FIRSTNAME name
