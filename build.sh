@@ -36,15 +36,15 @@ function change_baseurl() {
 }
 
 function build_image() {
-    envsubst < docker-compose.yml | cat
+    envsubst < docker-compose.yml | docker-compose -f - -p $PROJECT_NAME build 
 }
 
 function start_service() {
-    envsubst < docker-compose.yml | docker-compose -p $PROJECT_NAME up -d -f -
+    envsubst < docker-compose.yml | docker-compose -f - -p $PROJECT_NAME up -d 
 }
 
 function down_service() {
-    envsubst < docker-compose.yml | docker-compose -p $PROJECT_NAME down -f -
+    envsubst < docker-compose.yml | docker-compose -f - -p $PROJECT_NAME down
 }
 
 export Command_Usage="Usage: ./build.sh -o [OPTION...]"
