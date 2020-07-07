@@ -2,6 +2,7 @@
 
 # Project related environment variables
 export PROJECT_NAME=magento
+export REPLACE_DOMAIN=
 
 # Mysql related environment variables
 export MYSQL_ROOT_PASSWORD=admin
@@ -32,7 +33,8 @@ export MYSQL_VOLUME_PATH=/opt/$PROJECT_NAME-mysql
 export APACHE_PORt=30000
 
 function change_baseurl() {
-    grep -rl "wipro-demo.com" * -R | xargs sed -i "s|wipro-demo.com|${MAGENTO_BASE_URL}|g"
+    REPLACE_DOMAIN=$(echo "$MAGENTO_BASE_URL" | awk -F/ '{print $3}')
+    grep -rl "wipro-demo.com" * -R | xargs sed -i "s|wipro-demo.com|${REPLACE_DOMAIN}|g"
 }
 
 function build_image() {
