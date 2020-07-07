@@ -36,7 +36,7 @@ function change_baseurl() {
 }
 
 function build_image() {
-    envsubst < docker-compose.yml | docker-compose -p $PROJECT_NAME build -f -
+    envsubst < docker-compose.yml | cat
 }
 
 function start_service() {
