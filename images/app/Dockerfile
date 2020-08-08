@@ -26,7 +26,8 @@ RUN yum update -y \
        libpng libpng-devel libjpeg libjpeg-devel unzip
 
 # Installing apacahe2
-RUN yum install -y httpd
+COPY httpd-2.4.18-1.x86_64.rpm /tmp/httpd-2.4.18-1.x86_64.rpm
+RUN yum install -y /tmp/httpd-2.4.18-1.x86_64.rpm
 
 # Installing Php
 COPY php.ini /etc/
