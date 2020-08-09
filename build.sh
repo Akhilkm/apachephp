@@ -10,7 +10,7 @@ export MYSQL_USER=admin
 export MYSQL_PASSWORD=Wipro@123
 
 # Magento related environment variables
-export MAGENTO_BASE_URL=http://wipro-demo.com:30000/magento2/
+export MAGENTO_BASE_URL=http://wipro-demo.com:30000/magento/
 export MAGENTO_BACKEND_FRONTNAME=admin
 export MAGENTO_LANGUAGE=en_US
 export MAGENTO_CURRENCY=USD
