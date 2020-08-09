@@ -31,7 +31,7 @@ RUN yum update -y \
 # Installing apacahe2
 RUN cd /opt \
     && useradd apache \
-    && wget https://mirrors.estointernet.in/apache//httpd/httpd-$APACHE_VERION.tar.gz \
+    && wget https://archive.apache.org/dist/httpd/httpd-$APACHE_VERION.tar.gz \
     && tar -zxvf httpd-${APACHE_VERION}.tar.gz \
     && cd httpd-${APACHE_VERION} \
     && cd srclib \
@@ -43,7 +43,7 @@ RUN cd /opt \
     && mv apr-1.7.0 apr \
     && mv apr-util-1.6.1 apr-util \
     && cd .. \
-    && ./configure --prefix=/opt/apache2 --with-included-apr --enable-so --with-mysql\
+    && ./configure --prefix=/opt/apache2 --with-included-apr --enable-so \
     && make \
     && make install \
     && cd /opt/ \
@@ -52,16 +52,17 @@ RUN cd /opt \
 
 # Installing Php
 COPY php.ini /opt/php/lib/php.ini
-RUN wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
+RUN cd /opt \
+    && wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
     && tar -zxvf php-${PHP_VERSION}.tar.gz \
     && cd php-${PHP_VERSION} \
-    && ./configure --with-apxs2=/opt/apache2/bin/apxs --prefix=$PHP_HOME \
+    && ./configure --prefix=$PHP_HOME --with-apxs2=${APACHE_HOME}/bin/apxs --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-openssl \
     && make \
     && make install \
+    && libtool --finish /opt/php-7.2.31/libs \
     && ln -s $PHP_HOME/lib/php.ini $PHP_HOME/etc/ \
-    && rm -f /opt/php-* \
-    && libtool --finish /opt/php-${PHP_VERSION}/libs \
-    && chmod 755 ${APACHE_HOME}/modules/libphp7.so
+    && chmod 755 ${APACHE_HOME}/modules/libphp7.so \
+    && rm -rf /opt/php-* 
 
 # Installing magento
 COPY magento/magento-ce-${MAGENTO_VERSION}-p2_${SAMPLE_DATA}-2020-04-25-01-31-19.tar.gz /opt/
