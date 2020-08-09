@@ -53,6 +53,7 @@ RUN cd /opt \
 # Installing Php
 COPY php.ini /opt/php/lib/php.ini
 RUN cd /opt \
+    && yum install -y curl curl-devel \
     && wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
     && tar -zxvf php-${PHP_VERSION}.tar.gz \
     && cd php-${PHP_VERSION} \
