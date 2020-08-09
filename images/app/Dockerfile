@@ -56,7 +56,10 @@ RUN cd /opt \
     && wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
     && tar -zxvf php-${PHP_VERSION}.tar.gz \
     && cd php-${PHP_VERSION} \
-    && ./configure --prefix=$PHP_HOME --with-apxs2=${APACHE_HOME}/bin/apxs --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-openssl --enable-zip \
+    && ./configure --prefix=$PHP_HOME --with-apxs2=${APACHE_HOME}/bin/apxs --with-mysqli=mysqlnd \
+                   --with-pdo-mysql=mysqlnd --with-openssl --enable-zip --enable-intl  --enable-mbstring  \
+                   --enable-bcmath --enable-soap --enable-sockets --with-curl --with-xsl --enable-opcache \
+                   --enable-xml --with-iconv --with-gd \
     && make \
     && make install \
     && libtool --finish /opt/php-7.2.31/libs \
@@ -82,7 +85,6 @@ RUN cd $MAGENTO_HOME \
 # Setting up the environment
 WORKDIR /opt/apache2
 COPY httpd.conf conf/httpd.conf
-EXPOSE 8080
 
 # Adding startup script
 COPY run.sh /opt/
