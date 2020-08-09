@@ -28,7 +28,7 @@ export MAGENTO_DB_PASSWORD=$MYSQL_PASSWORD
 
 # System related environment variables
 export MYSQL_PORT=3306
-export MYSQL_VOLUME_PATH=~/opt/$PROJECT_NAME-mysql
+export MYSQL_VOLUME_PATH=/opt/$PROJECT_NAME-mysql
 export APACHE_PORt=30000
 
 function change_baseurl() {
