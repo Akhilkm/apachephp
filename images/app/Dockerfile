@@ -53,14 +53,14 @@ RUN cd /opt \
 # Installing Php
 COPY php.ini /opt/php/lib/php.ini
 RUN cd /opt \
-    && yum install -y curl curl-devel libicu-devel gcc-c++ libxslt libxslt-devel \
+    && yum install -y curl curl-devel libicu-devel gcc-c++ libxslt libxslt-devel libjpeg libjpeg-devel \
     && wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
     && tar -zxvf php-${PHP_VERSION}.tar.gz \
     && cd php-${PHP_VERSION} \
     && ./configure --prefix=$PHP_HOME --with-apxs2=${APACHE_HOME}/bin/apxs --with-mysqli=mysqlnd \
                    --with-pdo-mysql=mysqlnd --with-openssl --enable-zip --enable-intl  --enable-mbstring  \
                    --enable-bcmath --enable-soap --enable-sockets --with-curl --with-xsl --enable-opcache \
-                   --enable-xml --with-iconv --with-gd \
+                   --enable-xml --with-iconv --with-jpeg-dir --with-gd \
     && make \
     && make install \
     && libtool --finish /opt/php-7.2.31/libs \
