@@ -9,7 +9,7 @@ ENV APACHE_VERION 2.4.43
 ENV APACHE_HOME /opt/apache2
 ENV MAGENTO_VERSION 2.3.4
 ENV SAMPLE_DATA sample_data
-ENV MAGENTO_HOME /opt/apache2/htdocs/magento2
+ENV MAGENTO_HOME /opt/apache2/htdocs/public_html/magento
 ENV PHP_VERSION 7.2.31
 ENV PHP_HOME /opt/php
 ENV PATH="/opt/apache2/bin:${MAGENTO_HOME}/bin:${PHP_HOME}/bin:${PATH}"
