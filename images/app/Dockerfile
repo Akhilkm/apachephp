@@ -26,7 +26,7 @@ ENV MAGENTO_DB_PASSWORD magento
 
 # Installing dependancies
 RUN yum update -y \
-    && yum install -y wget vim net-tools cmake make gcc openssl-devel expat-devel deltarpm libxml2-devel libtool
+    && yum install -y wget vim net-tools cmake make gcc openssl-devel expat-devel deltarpm libxml2-devel libtool libpng-devel
 
 # Installing apacahe2
 RUN cd /opt \
@@ -56,7 +56,7 @@ RUN cd /opt \
     && wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
     && tar -zxvf php-${PHP_VERSION}.tar.gz \
     && cd php-${PHP_VERSION} \
-    && ./configure --prefix=$PHP_HOME --with-apxs2=${APACHE_HOME}/bin/apxs --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-openssl \
+    && ./configure --prefix=$PHP_HOME --with-apxs2=${APACHE_HOME}/bin/apxs --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-openssl --enable-zip  --enable-intl \
     && make \
     && make install \
     && libtool --finish /opt/php-7.2.31/libs \
